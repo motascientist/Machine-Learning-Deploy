@@ -1,0 +1,10 @@
+/* styles.css */
+body {
+    background-color: #362e2e; /* Set the background color of the entire app */
+}
+
+.stApp {
+    max-width: 1200px; /* Set a maximum width for the app content */
+    margin: 0 auto; /* Center the app content horizontally */
+    padding: 20px; /* Add padding to the app content */
+}

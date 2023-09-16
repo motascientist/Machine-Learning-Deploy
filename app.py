@@ -2,14 +2,27 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+from PIL import Image
 
-st.write("""
+# Set page configuration and title
+st.set_page_config(
+    page_title="Space Journey Prediction App",
+    page_icon="🚀",
+    layout="wide"
+)
+
+# Load custom CSS for styling
+with open("styles.css") as f:
+    st.markdown('<style>{}</style>'.format(f.read()), unsafe_allow_html=True)
+
+
+# Title and description
+st.markdown("""
 # Space Journey Prediction App
-
-This app predicts whether passengers will be transported on a space journey!
-
+*Predict whether passengers will be transported on a space journey.*
 """)
 
+# Sidebar header
 st.sidebar.header('User Input Features')
 
 # Collects user input features into a dictionary
@@ -53,8 +66,17 @@ load_clf = pickle.load(open('space_titanic.pkl', 'rb'))
 prediction = load_clf.predict(input_df)
 prediction_proba = load_clf.predict_proba(input_df)
 
-st.subheader('Prediction')
-st.write('Will be transported on a space journey' if prediction[0] == 1 else 'Will not be transported on a space journey')
+# Prediction header
+st.markdown('<hr style="border:2px solid #007BFF">', unsafe_allow_html=True)
+st.markdown('<p style="font-size: 24px; font-weight: bold;">Prediction Results</p>', unsafe_allow_html=True)
+
+# Display prediction and prediction probability
+prediction_text = 'Will be transported on a space journey' if prediction[0] == 1 else 'Will not be transported on a space journey'
+st.write(f"Prediction: {prediction_text}")
 
 st.subheader('Prediction Probability')
 st.write(prediction_proba)
+
+# Add a space-themed image
+image = Image.open("space_image.jpg")
+st.image(image, use_column_width=True)
